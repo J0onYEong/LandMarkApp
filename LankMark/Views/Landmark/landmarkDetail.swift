@@ -8,7 +8,12 @@
 import SwiftUI
 
 struct landmarkDetail: View {
+    @EnvironmentObject var modelData: ModelData
     var landmark: Landmark
+    
+    var landmarkIndex: Int {
+        modelData.landmarks.firstIndex(where: {$0.id == landmark.id})!
+    }
     var body: some View {
         ScrollView {
             MapView(coordinates: landmark.locationCoordinate).frame(height: 300).ignoresSafeArea(edges: .top)
@@ -16,8 +21,12 @@ struct landmarkDetail: View {
             CircleImage(image: landmark.image).offset(y: -130).padding(.bottom, -130)
 
             VStack(alignment: .leading) {
-                Text(landmark.name)
-                    .font(.title)
+                HStack {
+                    Text(landmark.name)
+                        .font(.title)
+                    //@StateObject로 선언된 변수도 바인딩으로 사용이 가능한 것같다.
+                    FavoriteButton(isSet: $modelData.landmarks[landmarkIndex].isFavorite)
+                }
                 HStack {
                     Text(landmark.park)
                     Spacer()
@@ -38,6 +47,7 @@ struct landmarkDetail: View {
 
 struct landmarkDetail_Previews: PreviewProvider {
     static var previews: some View {
-        landmarkDetail(landmark: landmarks[1])
+        landmarkDetail(landmark: ModelData().landmarks[2])
+            .environmentObject(ModelData())
     }
 }

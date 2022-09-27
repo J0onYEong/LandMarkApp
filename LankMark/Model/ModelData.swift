@@ -6,9 +6,13 @@
 //
 
 import SwiftUI
+import Combine
 
-var landmarks: [Landmark] = load("landmarkData.json")
-
+//SwiftUI는 ObservableObject를 구독하고 변경사항이 생기면 View를 업데이트 한다.
+final class ModelData: ObservableObject {
+    //@Published속성을 부여해야지 SwiftUI가 감지할 수 있다.
+    @Published var landmarks: [Landmark] = load("landmarkData.json")
+}
 
 func load<T: Decodable>(_ filename: String) -> T {
     let data: Data
