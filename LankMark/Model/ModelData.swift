@@ -12,6 +12,8 @@ import Combine
 final class ModelData: ObservableObject {
     //@Published속성을 부여해야지 SwiftUI가 감지할 수 있다.
     @Published var landmarks: [Landmark] = load("landmarkData.json")
+    //hikes변수는 한번로드하면 변경하지 않기 때문에 @Published를 사용하지 않아도 된다.
+    let hikes: [Hike] = load("hikeData.json")
 }
 
 func load<T: Decodable>(_ filename: String) -> T {
