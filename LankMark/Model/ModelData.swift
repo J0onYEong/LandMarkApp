@@ -14,6 +14,7 @@ final class ModelData: ObservableObject {
     @Published var landmarks: [Landmark] = load("landmarkData.json")
     //hikes변수는 한번로드하면 변경하지 않기 때문에 @Published를 사용하지 않아도 된다.
     let hikes: [Hike] = load("hikeData.json")
+    @Published var profile = Profile.default
     
     var categories: [String : [Landmark]] {
         Dictionary (grouping: landmarks) {
