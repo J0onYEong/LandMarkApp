@@ -18,9 +18,13 @@ struct Landmark: Hashable, Codable, Identifiable {
     var isFavorite: Bool
     var isFeatured: Bool
     var category: Category
-
     
     private var imageName: String
+    
+    var featureImage: Image? {
+        self.isFeatured ? Image(imageName + "_feature") : nil
+    }
+    
     var image: Image {
         Image(self.imageName)
     }
